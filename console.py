@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class with given parameters"""
+        """Create an object of any class with given parameters"""
         if not args:
             print("** class name missing **")
             return
@@ -127,6 +127,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         new_instance = HBNBCommand.classes[class_name]()
+        print(f"Creating a new instance of {class_name}")
 
         for param in args[1:]:
             key_value = param.split("=")
@@ -146,11 +147,12 @@ class HBNBCommand(cmd.Cmd):
                 except ValueError:
                     continue
 
+            print(f"Setting attribute {key} to {value}")
             setattr(new_instance, key, value)
 
+        print(f"Final attributes: {new_instance.__dict__}")
         new_instance.save()
         print(new_instance.id)
-
 
     def help_create(self):
         """ Help information for the create method """
@@ -230,21 +232,17 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
-        print_list = []
-
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+        """Shows all objects, or all objects of a class"""
+        args = args.split()
+        if len(args) == 0:
+            all_objects = storage.all()
+        else:
+            if args[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            all_objects = storage.all(args[0])
 
+        print_list = [str(obj) for obj in all_objects.values()]
         print(print_list)
 
     def help_all(self):
