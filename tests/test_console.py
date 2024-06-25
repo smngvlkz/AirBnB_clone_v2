@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 """ Unit tests for the HBNBCommand class """
+from models.review import Review
+from models.amenity import Amenity
+from models.user import User
+from models.city import City
+from models.place import Place
+from models.state import State
+from models import storage
+from console import HBNBCommand
 import unittest
 from io import StringIO
 from unittest.mock import patch
@@ -8,15 +16,6 @@ import os
 
 # Append the path to the directory containing console.py
 sys.path.append(os.path.abspath('..'))
-
-from console import HBNBCommand
-from models import storage
-from models.state import State
-from models.place import Place
-from models.city import City
-from models.user import User
-from models.amenity import Amenity
-from models.review import Review
 
 
 class TestHBNBCommand(unittest.TestCase):
@@ -40,7 +39,8 @@ class TestHBNBCommand(unittest.TestCase):
             self.assertIn('State.' + state_id, storage.all())
 
         with patch('sys.stdout', new=StringIO()) as f:
-            self.console.onecmd('create Place city_id="0001" user_id="0001" name="My_little_house" number_rooms=4 number_bathrooms=2 max_guest=10 price_by_night=300 latitude=37.773972 longitude=-122.431297')
+            self.console.onecmd(
+                'create Place city_id="0001" user_id="0001" name="My_little_house" number_rooms=4 number_bathrooms=2 max_guest=10 price_by_night=300 latitude=37.773972 longitude=-122.431297')
             place_id = f.getvalue().strip()
             self.assertIn('Place.' + place_id, storage.all())
 
@@ -75,7 +75,8 @@ class TestHBNBCommand(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             self.console.onecmd('create State name="Washington"')
             state_id = f.getvalue().strip()
-            self.console.onecmd(f'update State {state_id} name "New Washington"')
+            self.console.onecmd(
+                f'update State {state_id} name "New Washington"')
             self.console.onecmd(f'show State {state_id}')
             output = f.getvalue().strip()
             self.assertIn('New Washington', output)
