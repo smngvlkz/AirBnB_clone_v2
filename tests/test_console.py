@@ -1,18 +1,19 @@
 #!/usr/bin/python3
 """ Unit tests for the HBNBCommand class """
-from models.review import Review
-from models.amenity import Amenity
-from models.user import User
-from models.city import City
-from models.place import Place
-from models.state import State
-from models import storage
-from console import HBNBCommand
+import os
+import sys
 import unittest
 from io import StringIO
 from unittest.mock import patch
-import sys
-import os
+
+from console import HBNBCommand
+from models import storage
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
 # Append the path to the directory containing console.py
 sys.path.append(os.path.abspath(".."))

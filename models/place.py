@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, Integer, Float, ForeignKey
+from sqlalchemy import Column, Float, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
-from models.review import Review
+
 from models import storage_type
+from models.base_model import Base, BaseModel
+from models.review import Review
 
 
 class Place(BaseModel, Base):
