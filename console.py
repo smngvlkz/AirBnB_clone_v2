@@ -114,22 +114,56 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """ Create an object of any class"""
+        """Create an object of any class with given parameters"""
         if not args:
             print("** class name missing **")
             return
-        elif args not in HBNBCommand.classes:
+
+        args = args.split()
+        class_name = args[0]
+
+        if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-        new_instance = HBNBCommand.classes[args]()
-        storage.save()
+
+        new_instance = HBNBCommand.classes[class_name]()
+        print(f"Creating a new instance of {class_name}")
+
+        for param in args[1:]:
+            key_value = param.split("=")
+            if len(key_value) != 2:
+                continue
+            key, value = key_value
+            if value.startswith('"') and value.endswith('"'):
+                value = value[1:-1].replace('_', ' ').replace('\\"', '"')
+            elif '.' in value:
+                try:
+                    value = float(value)
+                except ValueError:
+                    continue
+            else:
+                try:
+                    value = int(value)
+                except ValueError:
+                    continue
+
+            print(f"Setting attribute {key} to {value}")
+            setattr(new_instance, key, value)
+
+        print(f"Final attributes: {new_instance.__dict__}")
+        new_instance.save()
         print(new_instance.id)
-        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
         print("Creates a class of any type")
-        print("[Usage]: create <className>\n")
+        print("[Usage]: create <className> <param1> <param2> <param3>...\n")
+        print("Param syntax: <key name>=<value>")
+        print("Value syntax:")
+        print("  String: \"<value>\" => starts with a double quote")
+        print("  Float: <unit>.<decimal> => contains a dot")
+        print("  Integer: <number> => default case")
+        print("Example: create State name=\"California\"")
 
     def do_show(self, args):
         """ Method to show an individual object """
@@ -198,21 +232,17 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """ Shows all objects, or all objects of a class"""
-        print_list = []
-
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+        """Shows all objects, or all objects of a class"""
+        args = args.split()
+        if len(args) == 0:
+            all_objects = storage.all()
+        else:
+            if args[0] not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
-        else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
+            all_objects = storage.all(args[0])
 
+        print_list = [str(obj) for obj in all_objects.values()]
         print(print_list)
 
     def help_all(self):
