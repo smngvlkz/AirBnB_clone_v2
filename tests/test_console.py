@@ -77,7 +77,8 @@ class TestHBNBCommand(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as f:
             self.console.onecmd('create State name="Washington"')
             state_id = f.getvalue().strip()
-            self.console.onecmd(f'update State {state_id} name "New Washington"')
+            self.console.onecmd(
+                f'update State {state_id} name "New Washington"')
             self.console.onecmd(f"show State {state_id}")
             output = f.getvalue().strip()
             self.assertIn("New Washington", output)

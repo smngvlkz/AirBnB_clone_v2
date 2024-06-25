@@ -20,7 +20,9 @@ class FileStorage:
             return FileStorage.__objects
         else:
             return {
-                k: v for k, v in FileStorage.__objects.items() if isinstance(v, cls)
+                k: v
+                for k, v in FileStorage.__objects.items()
+                if isinstance(v, cls)
             }
 
     def new(self, obj):

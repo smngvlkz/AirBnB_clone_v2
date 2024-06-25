@@ -39,9 +39,10 @@ class DBStorage:
         HBNB_ENV = getenv("HBNB_ENV")
 
         self.__engine = create_engine(
-            "mysql+mysqldb://{}:{}@{}/{}".format(
-                HBNB_MYSQL_USER, HBNB_MYSQL_PWD, HBNB_MYSQL_HOST, HBNB_MYSQL_DB
-            ),
+            "mysql+mysqldb://{}:{}@{}/{}".format(HBNB_MYSQL_USER,
+                                                 HBNB_MYSQL_PWD,
+                                                 HBNB_MYSQL_HOST,
+                                                 HBNB_MYSQL_DB),
             pool_pre_ping=True,
         )
 
@@ -92,7 +93,8 @@ class DBStorage:
     def reload(self):
         """Reloads the database"""
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine,
+                                       expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session()
 

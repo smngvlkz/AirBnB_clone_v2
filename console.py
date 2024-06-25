@@ -62,15 +62,15 @@ class HBNBCommand(cmd.Cmd):
             pline = line[:]  # parsed line
 
             # isolate <class name>
-            _cls = pline[: pline.find(".")]
+            _cls = pline[:pline.find(".")]
 
             # isolate and validate <command>
-            _cmd = pline[pline.find(".") + 1 : pline.find("(")]
+            _cmd = pline[pline.find(".") + 1:pline.find("(")]
             if _cmd not in HBNBCommand.dot_cmds:
                 raise Exception
 
             # if parantheses contain arguments, parse them
-            pline = pline[pline.find("(") + 1 : pline.find(")")]
+            pline = pline[pline.find("(") + 1:pline.find(")")]
             if pline:
                 # partition args: (<id>, [<delim>], [<*args>])
                 pline = pline.partition(", ")  # pline convert to tuple
@@ -84,11 +84,8 @@ class HBNBCommand(cmd.Cmd):
                 pline = pline[2].strip()  # pline is now str
                 if pline:
                     # check for *args or **kwargs
-                    if (
-                        pline[0] == "{"
-                        and pline[-1] == "}"
-                        and type(eval(pline)) is dict
-                    ):
+                    if (pline[0] == "{" and pline[-1] == "}"
+                            and type(eval(pline)) is dict):
                         _args = pline
                     else:
                         _args = pline.replace(",", "")
@@ -356,7 +353,7 @@ class HBNBCommand(cmd.Cmd):
             if args and args[0] == '"':  # check for quoted arg
                 second_quote = args.find('"', 1)
                 att_name = args[1:second_quote]
-                args = args[second_quote + 1 :]
+                args = args[second_quote + 1:]
 
             args = args.partition(" ")
 
@@ -365,7 +362,7 @@ class HBNBCommand(cmd.Cmd):
                 att_name = args[0]
             # check for quoted val arg
             if args[2] and args[2][0] == '"':
-                att_val = args[2][1 : args[2].find('"', 1)]
+                att_val = args[2][1:args[2].find('"', 1)]
 
             # if att_val was not quoted arg
             if not att_val and args[2]:

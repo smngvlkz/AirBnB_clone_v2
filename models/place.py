@@ -33,9 +33,9 @@ class Place(BaseModel, Base):
     city = relationship("City", back_populates="places")
 
     if storage_type == "db":
-        reviews = relationship(
-            "Review", back_populates="place", cascade="all, delete-orphan"
-        )
+        reviews = relationship("Review",
+                               back_populates="place",
+                               cascade="all, delete-orphan")
     else:
 
         @property
