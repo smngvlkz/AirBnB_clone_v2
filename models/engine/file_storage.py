@@ -11,7 +11,11 @@ class FileStorage:
 
     def all(self, cls=None):
         """Returns a dictionary of models currently in storage.
-        If cls is provided, returns only objects of that class."""
+        If cls is provided, returns only objects of that class.
+
+        :param cls:  (Default value = None)
+
+        """
         if cls is None:
             return FileStorage.__objects
         else:
@@ -20,7 +24,11 @@ class FileStorage:
             }
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
+        """Adds new object to storage dictionary
+
+        :param obj: 
+
+        """
         self.all().update({obj.to_dict()["__class__"] + "." + obj.id: obj})
 
     def save(self):
@@ -61,7 +69,11 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        """Deletes obj from __objects if it's inside"""
+        """Deletes obj from __objects if it's inside
+
+        :param obj:  (Default value = None)
+
+        """
         if obj is not None:
             key = obj.to_dict()["__class__"] + "." + obj.id
             if key in FileStorage.__objects:

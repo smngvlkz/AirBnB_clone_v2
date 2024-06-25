@@ -45,9 +45,12 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-
+        
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
+
+        :param line: 
+
         """
         _cmd = _cls = _id = _args = ""  # initialize line elements
 
@@ -98,13 +101,22 @@ class HBNBCommand(cmd.Cmd):
             return line
 
     def postcmd(self, stop, line):
-        """Prints if isatty is false"""
+        """Prints if isatty is false
+
+        :param stop: 
+        :param line: 
+
+        """
         if not sys.__stdin__.isatty():
             print("(hbnb) ", end="")
         return stop
 
     def do_quit(self, command):
-        """Method to exit the HBNB console"""
+        """Method to exit the HBNB console
+
+        :param command: 
+
+        """
         exit()
 
     def help_quit(self):
@@ -112,7 +124,11 @@ class HBNBCommand(cmd.Cmd):
         print("Exits the program with formatting\n")
 
     def do_EOF(self, arg):
-        """Handles EOF to exit program"""
+        """Handles EOF to exit program
+
+        :param arg: 
+
+        """
         print()
         exit()
 
@@ -125,7 +141,11 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, args):
-        """Create an object of any class with given parameters"""
+        """Create an object of any class with given parameters
+
+        :param args: 
+
+        """
         if not args:
             print("** class name missing **")
             return
@@ -177,7 +197,11 @@ class HBNBCommand(cmd.Cmd):
         print('Example: create State name="California"')
 
     def do_show(self, args):
-        """Method to show an individual object"""
+        """Method to show an individual object
+
+        :param args: 
+
+        """
         new = args.partition(" ")
         c_name = new[0]
         c_id = new[2]
@@ -210,7 +234,11 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: show <className> <objectId>\n")
 
     def do_destroy(self, args):
-        """Destroys a specified object"""
+        """Destroys a specified object
+
+        :param args: 
+
+        """
         new = args.partition(" ")
         c_name = new[0]
         c_id = new[2]
@@ -243,7 +271,11 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: destroy <className> <objectId>\n")
 
     def do_all(self, args):
-        """Shows all objects, or all objects of a class"""
+        """Shows all objects, or all objects of a class
+
+        :param args: 
+
+        """
         args = args.split()
         if len(args) == 0:
             all_objects = storage.all()
@@ -262,7 +294,11 @@ class HBNBCommand(cmd.Cmd):
         print("[Usage]: all <className>\n")
 
     def do_count(self, args):
-        """Count current number of class instances"""
+        """Count current number of class instances
+
+        :param args: 
+
+        """
         count = 0
         for k, v in storage._FileStorage__objects.items():
             if args == k.split(".")[0]:
@@ -274,7 +310,11 @@ class HBNBCommand(cmd.Cmd):
         print("Usage: count <class_name>")
 
     def do_update(self, args):
-        """Updates a certain object with new info"""
+        """Updates a certain object with new info
+
+        :param args: 
+
+        """
         c_name = c_id = att_name = att_val = kwargs = ""
 
         # isolate cls from id/args, ex: (<cls>, delim, <id/args>)

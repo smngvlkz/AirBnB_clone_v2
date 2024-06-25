@@ -48,7 +48,11 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        """Queries the current database session"""
+        """Queries the current database session
+
+        :param cls:  (Default value = None)
+
+        """
         objects = {}
         if cls:
             cls = classes.get(cls, None)
@@ -64,7 +68,11 @@ class DBStorage:
         return objects
 
     def new(self, obj):
-        """Adds the object to the current database session"""
+        """Adds the object to the current database session
+
+        :param obj: 
+
+        """
         self.__session.add(obj)
 
     def save(self):
@@ -72,7 +80,11 @@ class DBStorage:
         self.__session.commit()
 
     def delete(self, obj=None):
-        """Deletes from the current database session obj if not None"""
+        """Deletes from the current database session obj if not None
+
+        :param obj:  (Default value = None)
+
+        """
         if obj is not None:
             self.__session.delete(obj)
 
