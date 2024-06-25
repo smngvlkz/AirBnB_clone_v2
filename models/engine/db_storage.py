@@ -71,7 +71,7 @@ class DBStorage:
     def new(self, obj):
         """Adds the object to the current database session
 
-        :param obj: 
+        :param obj:
 
         """
         self.__session.add(obj)

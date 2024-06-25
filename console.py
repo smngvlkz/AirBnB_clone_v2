@@ -45,11 +45,11 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """Reformat command line for advanced command syntax.
-        
+
         Usage: <class name>.<command>([<id> [<*args> or <**kwargs>]])
         (Brackets denote optional fields in usage example.)
 
-        :param line: 
+        :param line:
 
         """
         _cmd = _cls = _id = _args = ""  # initialize line elements
@@ -103,8 +103,8 @@ class HBNBCommand(cmd.Cmd):
     def postcmd(self, stop, line):
         """Prints if isatty is false
 
-        :param stop: 
-        :param line: 
+        :param stop:
+        :param line:
 
         """
         if not sys.__stdin__.isatty():
@@ -114,7 +114,7 @@ class HBNBCommand(cmd.Cmd):
     def do_quit(self, command):
         """Method to exit the HBNB console
 
-        :param command: 
+        :param command:
 
         """
         exit()
@@ -126,7 +126,7 @@ class HBNBCommand(cmd.Cmd):
     def do_EOF(self, arg):
         """Handles EOF to exit program
 
-        :param arg: 
+        :param arg:
 
         """
         print()
@@ -143,7 +143,7 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, args):
         """Create an object of any class with given parameters
 
-        :param args: 
+        :param args:
 
         """
         if not args:
@@ -199,7 +199,7 @@ class HBNBCommand(cmd.Cmd):
     def do_show(self, args):
         """Method to show an individual object
 
-        :param args: 
+        :param args:
 
         """
         new = args.partition(" ")
@@ -236,7 +236,7 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, args):
         """Destroys a specified object
 
-        :param args: 
+        :param args:
 
         """
         new = args.partition(" ")
@@ -273,7 +273,7 @@ class HBNBCommand(cmd.Cmd):
     def do_all(self, args):
         """Shows all objects, or all objects of a class
 
-        :param args: 
+        :param args:
 
         """
         args = args.split()
@@ -296,7 +296,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, args):
         """Count current number of class instances
 
-        :param args: 
+        :param args:
 
         """
         count = 0
@@ -312,7 +312,7 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, args):
         """Updates a certain object with new info
 
-        :param args: 
+        :param args:
 
         """
         c_name = c_id = att_name = att_val = kwargs = ""

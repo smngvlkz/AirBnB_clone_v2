@@ -19,4 +19,3 @@ GRANT SELECT ON performance_schema.* TO 'hbnb_test' @'localhost';
 
 -- Apply the changes
 FLUSH PRIVILEGES;
-
