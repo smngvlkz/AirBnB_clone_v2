@@ -52,3 +52,13 @@ def do_deploy(archive_path):
         run("ln -s {} /data/web_static/current".format(f_path))
         return True
     return False
+
+
+def deploy():
+    """
+    Create and archive and get its path
+    """
+    archive_path = do_pack()
+    if archive_path is None:
+        return False
+    return do_deploy(archive_path)
